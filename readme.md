@@ -90,11 +90,22 @@ JWT_ALGO=HS256
 JWT_EXPIRATION=3600
 ```
 
-3. รันด้วย Dockerสั่งรันระบบผ่าน Terminal:
-```Bash 
+3. เริ่มต้นระบบ (Run with Docker)
+สั่งรัน Server และ Database:
+
+```Bash
+
 docker-compose up -d --build
 ```
-ระบบจะทำการสร้าง Database และตารางต่างๆ ให้โดยอัตโนมัติในครั้งแรก
+Note: รอสักครู่เพื่อให้ Database เริ่มทำงาน ระบบจะสร้างตารางต่างๆ ให้อัตโนมัติ
+
+ติดตั้ง PHP Library (Composer):
+
+```Bash
+
+docker-compose exec web composer install
+```
+ขั้นตอนนี้จำเป็นมาก เพื่อโหลดไลบรารีต่างๆ เช่น JWT, DotEnv
 
 4. เข้าใช้งาน
 * หน้าเว็บไซต์: http://localhost:8080
