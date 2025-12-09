@@ -90,7 +90,10 @@ JWT_ALGO=HS256
 JWT_EXPIRATION=3600
 ```
 
-3. รันด้วย Dockerสั่งรันระบบผ่าน Terminal:Bashdocker-compose up -d --build
+3. รันด้วย Dockerสั่งรันระบบผ่าน Terminal:
+```Bash 
+docker-compose up -d --build
+```
 ระบบจะทำการสร้าง Database และตารางต่างๆ ให้โดยอัตโนมัติในครั้งแรก
 
 4. เข้าใช้งานหน้าเว็บไซต์: http://localhost:8080จัดการฐานข้อมูล (phpMyAdmin): http://localhost:8081
