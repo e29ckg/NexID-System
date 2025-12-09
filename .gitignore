@@ -1,0 +1,38 @@
+# --- Security (สำคัญมาก) ---
+# ป้องกันรหัสผ่านและ Key ต่างๆ หลุด
+.env
+.env.local
+.env.backup
+*.key
+
+# --- Composer (PHP Dependencies) ---
+# เราจะเก็บแค่ composer.json และ composer.lock 
+# ส่วนโฟลเดอร์ vendor ให้คนอื่นไปสั่ง composer install เอง
+/vendor/
+
+# --- IDE & Editors ---
+# การตั้งค่าส่วนตัวของโปรแกรมเขียนโค้ด ไม่ควรเอาขึ้น
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# --- OS System Files ---
+# ไฟล์ขยะของระบบปฏิบัติการ
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# --- Docker ---
+# ไฟล์ override สำหรับรันในเครื่องตัวเอง
+docker-compose.override.yml
+# หากมีการ map volume ฐานข้อมูลไว้ในโฟลเดอร์โปรเจกต์ (เผื่อไว้)
+/mysql_data/
+/db_data/
+
+# --- Logs ---
+*.log
+error_log
