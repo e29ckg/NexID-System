@@ -1,27 +1,69 @@
 version: '3.8'
 
 services:
+  # ----------------------------------------------------------------
+  # 1. Web Server (PHP 8.1 + Apache)
+  # ----------------------------------------------------------------
   web:
-    build: .
+    build: .                # สร้างจาก Dockerfile ที่อยู่ในโฟลเดอร์เดียวกัน
+    container_name: nexid_web
     ports:
-      - "8080:80"
+      - "8080:80"           # เข้าเว็บผ่าน http://localhost:8080
     volumes:
-      - ./src:/var/www/html
-    # อ่านค่า .env เข้าไปใน Container PHP อัตโนมัติ
+      - ./src:/var/www/html # Map โฟลเดอร์ src ไปที่ Server (แก้โค้ดแล้วเปลี่ยนทันที)
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
     env_file:
-      - .env 
+      - .env                # อ่านค่าตัวแปรจากไฟล์ .env
     depends_on:
-      - db
+      - db                  # รอให้ Database รันเสร็จก่อนค่อยเริ่ม PHP
+    networks:
+      - app-network
 
+  # ----------------------------------------------------------------
+  # 2. Database (MySQL 5.7)
+  # ----------------------------------------------------------------
   db:
     image: mysql:5.7
-    # ใช้ค่าตัวแปรจาก .env ในการตั้งค่า MySQL
+    container_name: nexid_db
+    # platform: linux/amd64 # (สำหรับคนใช้ Mac ชิป M1/M2/M3 ให้เปิดบรรทัดนี้ถ้า MySQL ไม่รัน)
+    ports:
+      - "3306:3306"         # (Optional) เผื่อใช้โปรแกรมอื่น connect database
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpassword}
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - db_data:/var/lib/mysql
+      - db_data:/var/lib/mysql                         # เก็บข้อมูลถาวร (ปิด Docker ข้อมูลไม่หาย)
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql # สร้างตารางอัตโนมัติครั้งแรก
     env_file:
       - .env
+    networks:
+      - app-network
+
+  # ----------------------------------------------------------------
+  # 3. phpMyAdmin (Database Manager)
+  # ----------------------------------------------------------------
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: nexid_pma
+    ports:
+      - "8081:80"           # เข้าจัดการ DB ผ่าน http://localhost:8081
+    environment:
+      PMA_HOST: db
+      UPLOAD_LIMIT: 64M     # เพิ่มขนาดไฟล์อัปโหลด (เผื่อ import db ใหญ่ๆ)
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+# ----------------------------------------------------------------
+# Volumes & Networks Configuration
+# ----------------------------------------------------------------
+volumes:
+  db_data:                  # Volume สำหรับเก็บข้อมูล Database
+
+networks:
+  app-network:              # Network วงภายในให้ Container คุยกันเองได้
+    driver: bridge
