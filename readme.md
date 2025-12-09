@@ -59,6 +59,8 @@
     ├── register.html       # หน้าสมัครสมาชิก
     ├── dashboard.html      # หน้า Dashboard
     └── profile.html        # หน้าแก้ไขข้อมูล
+
+```   
 🚀 วิธีติดตั้งและเริ่มใช้งาน (Installation)1. Clone โปรเจกต์Bashgit clone [https://github.com/yourusername/nexid.git](https://github.com/yourusername/nexid.git)
 cd nexid
 2. ตั้งค่า Environmentก๊อปปี้ไฟล์ .env.example เป็น .env (หรือสร้างใหม่ตามตัวอย่างด้านล่าง)Bash# ตัวอย่างไฟล์ .env
