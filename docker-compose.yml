@@ -11,6 +11,7 @@ services:
       - "8080:80"           # เข้าเว็บผ่าน http://localhost:8080
     volumes:
       - ./src:/var/www/html # Map โฟลเดอร์ src ไปที่ Server (แก้โค้ดแล้วเปลี่ยนทันที)
+      - ./.env:/var/www/html/.env # Map ไฟล์ .env ไปที่ Server
     environment:
       - APACHE_DOCUMENT_ROOT=/var/www/html
     env_file:
