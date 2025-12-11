@@ -4,143 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - NexID</title>
-    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    
-    <style>
-        body { background-color: #f8f9fa; font-family: 'Sarabun', sans-serif; }
-        
-        /* Layout */
-        #wrapper { display: flex; width: 100%; overflow-x: hidden; }
-        #sidebar-wrapper {
-            min-height: 100vh;
-            width: 250px;
-            margin-left: 0;
-            transition: margin 0.25s ease-out;
-            background-color: #fff;
-            border-right: 1px solid #dee2e6;
-        }
-        #sidebar-wrapper .sidebar-heading { padding: 1.5rem 1.25rem; font-size: 1.5rem; font-weight: bold; color: #764ba2; }
-        #sidebar-wrapper .list-group-item {
-            border: none; padding: 1rem 1.25rem; font-size: 1rem; color: #555;
-            transition: all 0.2s;
-        }
-        #sidebar-wrapper .list-group-item:hover { background-color: #f0f0f5; color: #764ba2; border-left: 4px solid #764ba2; }
-        #sidebar-wrapper .list-group-item.active { background-color: #f0f0f5; color: #764ba2; border-left: 4px solid #764ba2; font-weight: bold; }
-        
-        #page-content-wrapper { width: 100%; }
-        
-        /* Stats Card */
-        .card-stat { border: none; border-radius: 10px; transition: transform 0.3s; }
-        .card-stat:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .icon-box { width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
-    </style>
-</head>
+    <link rel="stylesheet" href="css/style.css"> </head>
 <body>
 
 <div class="d-flex" id="wrapper">
-    <div id="sidebar-wrapper">
-        <div class="sidebar-heading border-bottom">NexID System</div>
-        <div class="list-group list-group-flush mt-3">
-            <a href="#" class="list-group-item list-group-item-action active"><i class="bi bi-speedometer2 me-2"></i> ภาพรวมระบบ</a>
-            <a href="profile.html" class="list-group-item list-group-item-action"><i class="bi bi-person-gear me-2"></i> แก้ไขข้อมูลส่วนตัว</a>
-            <a href="#" class="list-group-item list-group-item-action"><i class="bi bi-credit-card me-2"></i> ประวัติธุรกรรม</a>
-            <a href="#" class="list-group-item list-group-item-action text-danger mt-5" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i> ออกจากระบบ</a>
-        </div>
-    </div>
+    <div id="sidebar-wrapper"></div>
 
     <div id="page-content-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
-            <div class="container-fluid">
-                <button class="btn btn-light" id="menu-toggle"><i class="bi bi-list"></i></button>
-                <div class="ms-auto d-flex align-items-center">
-                    <span class="me-3 text-muted" id="navUsername">กำลังโหลด...</span>
-                    <img src="https://ui-avatars.com/api/?name=User&background=random" id="navAvatar" class="rounded-circle" width="40" height="40">
-                </div>
-            </div>
-        </nav>
+        <div id="navbar-placeholder"></div>
 
         <div class="container-fluid px-4 mt-4">
-            <h3 class="mb-4 text-secondary">ยินดีต้อนรับ, <span id="welcomeName" class="text-primary fw-bold">...</span></h3>
-
-            <div class="row g-3 mb-4">
-                <div class="col-md-4">
-                    <div class="card card-stat shadow-sm p-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <p class="text-muted mb-0">สถานะสมาชิก</p>
-                                <h4 class="mb-0 text-success">Active</h4>
-                            </div>
-                            <div class="icon-box bg-success bg-opacity-10 text-success"><i class="bi bi-check-circle"></i></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card card-stat shadow-sm p-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <p class="text-muted mb-0">Role</p>
-                                <h4 class="mb-0" id="roleDisplay">-</h4>
-                            </div>
-                            <div class="icon-box bg-primary bg-opacity-10 text-primary"><i class="bi bi-shield-lock"></i></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card card-stat shadow-sm p-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <p class="text-muted mb-0">เข้าสู่ระบบล่าสุด</p>
-                                <h5 class="mb-0 text-dark" id="lastLoginTime">วันนี้</h5>
-                            </div>
-                            <div class="icon-box bg-warning bg-opacity-10 text-warning"><i class="bi bi-clock-history"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            <h3 class="mb-4 text-secondary">ภาพรวมระบบ</h3>
+            
             <div class="row g-3">
-                <div class="col-lg-8">
-                    <div class="card shadow-sm border-0">
-                        <div class="card-header bg-white fw-bold py-3">
-                            <i class="bi bi-bar-chart-line me-2 text-primary"></i> สถิติการใช้งาน (ตัวอย่าง)
-                        </div>
-                        <div class="card-body">
-                            <canvas id="myChart" height="100"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4">
-                    <div class="card shadow-sm border-0 h-100">
-                        <div class="card-header bg-white fw-bold py-3">
-                            <i class="bi bi-person-vcard me-2 text-primary"></i> ข้อมูลส่วนตัว
-                        </div>
-                        <div class="card-body">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                    <span class="text-muted">Username</span>
-                                    <span class="fw-bold" id="infoUsername">-</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                    <span class="text-muted">ชื่อ-นามสกุล</span>
-                                    <span class="fw-bold" id="infoFullName">-</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                    <span class="text-muted">เบอร์โทร</span>
-                                    <span id="infoPhone">-</span>
-                                </li>
-                                <li class="list-group-item px-0">
-                                    <span class="text-muted d-block mb-1">ที่อยู่</span>
-                                    <span class="small" id="infoAddress">-</span>
-                                </li>
-                            </ul>
-                            <a href="profile.html" class="btn btn-outline-primary w-100 mt-3 rounded-pill">แก้ไขข้อมูล</a>
-                        </div>
+                <div class="col-md-12">
+                    <div class="alert alert-primary">
+                        ยินดีต้อนรับสู่หน้า Dashboard!
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
 </div>
@@ -148,96 +33,14 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="js/app.js"></script>
 
 <script>
-    // 1. ตรวจสอบการ Login ก่อนโหลดหน้า
-    const token = localStorage.getItem('jwt_token');
-    if (!token) {
-        window.location.href = 'index.html';
-    }
+    // เริ่มทำงาน: บอกว่าหน้านี้คือ 'menu-dashboard'
+    initLayout('menu-dashboard');
 
-    const API_URL = 'http://localhost:8080/api';
-
-    // 2. ฟังก์ชัน Toggle Sidebar
-    document.getElementById("menu-toggle").onclick = function() {
-        var el = document.getElementById("wrapper");
-        // แบบง่ายๆ คือ toggle class (อาจต้องเขียน css เพิ่มถ้าอยากให้ animation สวยๆ)
-        // สำหรับ Bootstrap 5 อาจใช้ Offcanvas แต่ในที่นี้ใช้วิธีซ่อน element
-        document.getElementById("sidebar-wrapper").classList.toggle("d-none");
-    };
-
-    // 3. ดึงข้อมูล Profile
-    async function loadData() {
-        try {
-            const res = await axios.get(`${API_URL}/get_profile.php`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            const d = res.data.data;
-
-            // Update UI
-            document.getElementById('navUsername').innerText = d.username;
-            document.getElementById('welcomeName').innerText = d.first_name ? d.first_name : d.username;
-            document.getElementById('roleDisplay').innerText = d.role.toUpperCase();
-            
-            // Info Card
-            document.getElementById('infoUsername').innerText = d.username;
-            document.getElementById('infoFullName').innerText = `${d.first_name || '-'} ${d.last_name || ''}`;
-            document.getElementById('infoPhone').innerText = d.phone || '-';
-            document.getElementById('infoAddress').innerText = d.address || '-';
-            
-            // Avatar Update (ใช้ชื่อแรกสร้างรูป)
-            const displayName = d.first_name || d.username;
-            document.getElementById('navAvatar').src = `https://ui-avatars.com/api/?name=${displayName}&background=764ba2&color=fff`;
-
-        } catch (err) {
-            console.error(err);
-            if (err.response && err.response.status === 401) logout();
-        }
-    }
-
-    // 4. สร้างกราฟ Chart.js (Mock Data)
-    function initChart() {
-        const ctx = document.getElementById('myChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.'],
-                datasets: [{
-                    label: 'ยอดการใช้งาน (ครั้ง)',
-                    data: [12, 19, 3, 5, 2, 3],
-                    borderColor: '#764ba2',
-                    backgroundColor: 'rgba(118, 75, 162, 0.1)',
-                    tension: 0.4,
-                    fill: true
-                }]
-            },
-            options: { responsive: true }
-        });
-    }
-
-    // 5. Logout
-    function logout() {
-        Swal.fire({
-            title: 'ออกจากระบบ?',
-            text: "คุณต้องการออกจากระบบใช่หรือไม่",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'ใช่, ออกจากระบบ'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                localStorage.removeItem('jwt_token');
-                localStorage.removeItem('user_role');
-                window.location.href = 'index.html';
-            }
-        });
-    }
-
-    // Run
-    loadData();
-    initChart();
+    // (Code เฉพาะหน้า Dashboard เช่น กราฟ Chart.js ใส่ตรงนี้ต่อได้เลย)
 </script>
 
 </body>

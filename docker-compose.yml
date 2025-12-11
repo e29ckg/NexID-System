@@ -8,7 +8,7 @@ services:
     build: .                # สร้างจาก Dockerfile ที่อยู่ในโฟลเดอร์เดียวกัน
     container_name: nexid_web
     ports:
-      - "8080:80"           # เข้าเว็บผ่าน http://localhost:8080
+      - "8888:80"           # เข้าเว็บผ่าน http://localhost:8080
     volumes:
       - ./src:/var/www/html # Map โฟลเดอร์ src ไปที่ Server (แก้โค้ดแล้วเปลี่ยนทันที)
       - ./.env:/var/www/html/.env # Map ไฟล์ .env ไปที่ Server
@@ -50,7 +50,7 @@ services:
     image: phpmyadmin/phpmyadmin
     container_name: nexid_pma
     ports:
-      - "8081:80"           # เข้าจัดการ DB ผ่าน http://localhost:8081
+      - "8889:80"           # เข้าจัดการ DB ผ่าน http://localhost:8081
     environment:
       PMA_HOST: db
       UPLOAD_LIMIT: 64M     # เพิ่มขนาดไฟล์อัปโหลด (เผื่อ import db ใหญ่ๆ)

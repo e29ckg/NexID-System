@@ -1,0 +1,31 @@
+/* css/style.css */
+
+body { background-color: #f8f9fa; font-family: 'Sarabun', sans-serif; }
+
+/* Layout & Sidebar */
+#wrapper { display: flex; width: 100%; overflow-x: hidden; }
+#sidebar-wrapper {
+    min-height: 100vh;
+    width: 250px;
+    margin-left: 0;
+    transition: margin 0.25s ease-out;
+    background-color: #fff;
+    border-right: 1px solid #dee2e6;
+}
+#sidebar-wrapper .sidebar-heading { padding: 1.5rem 1.25rem; font-size: 1.5rem; font-weight: bold; color: #764ba2; }
+#sidebar-wrapper .list-group-item {
+    border: none; padding: 1rem 1.25rem; font-size: 1rem; color: #555;
+    transition: all 0.2s;
+}
+#sidebar-wrapper .list-group-item:hover { background-color: #f0f0f5; color: #764ba2; border-left: 4px solid #764ba2; }
+#sidebar-wrapper .list-group-item.active { background-color: #f0f0f5; color: #764ba2; border-left: 4px solid #764ba2; font-weight: bold; }
+#page-content-wrapper { width: 100%; }
+
+/* Toggled State */
+#wrapper.toggled #sidebar-wrapper { margin-left: -250px; }
+
+/* Custom Utilities */
+.text-theme { color: #764ba2; }
+.bg-theme { background-color: #764ba2; }
+.btn-theme { background-color: #764ba2; color: white; border: none; }
+.btn-theme:hover { background-color: #5a367f; color: white; }
