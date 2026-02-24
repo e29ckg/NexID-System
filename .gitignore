@@ -32,6 +32,7 @@ docker-compose.override.yml
 # หากมีการ map volume ฐานข้อมูลไว้ในโฟลเดอร์โปรเจกต์ (เผื่อไว้)
 /mysql_data/
 /db_data/
+/db/*
 
 # --- Logs ---
 *.log
